@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Ldap;
 
+use LdapQuery\Exceptions\GrammarException;
 use Symfony\Component\Ldap\Exception\ConnectionException;
 
 /**
@@ -54,4 +55,14 @@ interface LdapClientInterface
      * @return string
      */
     public function escape($subject, $ignore = '', $flags = 0);
+
+    /**
+     * Retrieve the specified fields.
+     *
+     * @param string $dn
+     * @param array  $fields
+     * 
+     * @return array
+     */
+    public function get($dn, array $fields = []);
 }
