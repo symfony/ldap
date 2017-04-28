@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Ldap;
 
+use BadMethodCallException;
 use Symfony\Component\Ldap\Exception\ConnectionException;
 use Symfony\Component\Ldap\Exception\LdapException;
 
@@ -30,6 +31,7 @@ class LdapClient implements LdapClientInterface
     private $useStartTls;
     private $optReferrals;
     private $connection;
+    private $builder;
 
     /**
      * Constructor.
@@ -123,6 +125,18 @@ class LdapClient implements LdapClientInterface
         return $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function get($dn, array $fields = [])
+    {
+        return $this->find(
+            $dn,
+            $this->builder->stringify(),
+            $fields === [] ? '*' : $fields
+        );
+    }
+
     private function connect()
     {
         if (!$this->connection) {
@@ -150,5 +164,27 @@ class LdapClient implements LdapClientInterface
         }
 
         $this->connection = null;
+    }
+
+    /**
+     * Handle dynamic method calls into the method.
+     *
+     * @param string  $method
+     * @param array   $parameters
+     * 
+     * @return mixed
+     *
+     * @throws BadMethodCallException
+     */
+    public function __call($method, $parameters)
+    {
+        if (LdapQueryBuilder::isValidCall($method)) {
+            $this->builder = new LdapQueryBuilder($this);
+            return $this->builder->{$method}(...$parameters);
+        }
+
+        $className = static::class;
+
+        throw new BadMethodCallException("Call to undefined method {$className}::{$method}()");
     }
 }

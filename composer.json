@@ -18,7 +18,9 @@
     "require": {
         "php": ">=5.3.9",
         "symfony/polyfill-php56": "~1.0",
-        "ext-ldap": "*"
+        "ext-ldap": "*",
+        "avadaneidanut/ldapquery": "dev-master",
+        "psy/psysh": "^0.7.2"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Ldap\\": "" },
@@ -31,5 +33,14 @@
         "branch-alias": {
             "dev-master": "2.8-dev"
         }
-    }
+    },
+    "repositories":[
+        {
+            "packagist": false
+        },
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    ]
 }
