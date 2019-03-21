@@ -20,6 +20,7 @@ use Symfony\Component\Ldap\Exception\UpdateOperationException;
 /**
  * @author Charles Sarrazin <charles@sarraz.in>
  * @author Bob van de Vijver <bobvandevijver@hotmail.com>
+ * @author Mike Klubertz <mike@klubertz.de>
  */
 class EntryManager implements EntryManagerInterface
 {
@@ -138,5 +139,26 @@ class EntryManager implements EntryManagerInterface
         if (!@ldap_modify_batch($this->getConnectionResource(), $dn, $operationsMapped)) {
             throw new UpdateOperationException(sprintf('Error executing UpdateOperation on "%s": "%s".', $dn, ldap_error($this->getConnectionResource())));
         }
+
+        
+    }
+    
+    /**
+     * Get the last ldap error
+     */
+    public function getLastLdapError(): string {
+        
+        return ldap_error($this->getConnectionResource());
+        
+    }
+    
+    /**
+     * Get the last ldap error details
+     */
+    public function getLastLdapErrorDetails(): string {
+        
+        ldap_get_option($this->getConnectionResource(), LDAP_OPT_DIAGNOSTIC_MESSAGE, $err);
+        
+        return $err;
     }
 }

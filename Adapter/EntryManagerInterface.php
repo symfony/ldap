@@ -21,6 +21,7 @@ use Symfony\Component\Ldap\Exception\NotBoundException;
  * @author Charles Sarrazin <charles@sarraz.in>
  * @author Bob van de Vijver <bobvandevijver@hotmail.com>
  * @author Kevin Schuurmans <kevin.schuurmans@freshheads.com>
+ * @author Mike Klubertz <mike@klubertz.de>
  */
 interface EntryManagerInterface
 {
@@ -62,4 +63,14 @@ interface EntryManagerInterface
      * @throws LdapException
      */
     public function remove(Entry $entry);
+    
+    /**
+     * Get the last ldap error
+     */
+    public function getLastLdapError(): string;
+    
+    /**
+     * Get the last ldap error details
+     */
+    public function getLastLdapErrorDetails(): string;
 }
