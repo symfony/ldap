@@ -31,6 +31,39 @@ class EntryManagerTest extends TestCase
         $entryManager->move($entry, 'a');
     }
 
+    /**
+     * @see https://tools.ietf.org/html/rfc4514#section-3
+     * @dataProvider getDataProviderDns
+     */
+    public function testMoveWithRFC4514DistinguishedName($testDn, $expectedRdn)
+    {
+        $connection = $this->createMock(Connection::class);
+
+        $entry = new Entry($testDn);
+        $entryManager = new EntryManager($connection);
+
+        $method = (new \ReflectionClass(EntryManager::class))->getMethod('parseRdnFromEntry');
+        $method->setAccessible(true);
+
+        $cn = $method->invokeArgs($entryManager, [$entry, 'a']);
+
+        self::assertSame($expectedRdn, $cn);
+    }
+
+    /**
+     * Data provder for testMoveWithRFC4514DistinguishedName
+     */
+    public function getDataProviderDns(): array {
+
+        return [
+            ['CN=Simple,DC=example,DC=net', 'CN=Simple'],
+            ['CN=James \"Jim\" Smith\, III,DC=example,DC=net', 'CN=James \"Jim\" Smith\, III'],
+            ['UID=jsmith,DC=example,DC=net', 'UID=jsmith'],
+            ["CN=Before\0dAfter,DC=example,DC=net", "CN=Before\0dAfter"],
+        ];
+
+    }
+
     public function testGetResources()
     {
         $this->expectException('Symfony\Component\Ldap\Exception\NotBoundException');
