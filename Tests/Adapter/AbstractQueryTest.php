@@ -11,19 +11,17 @@
 
 namespace Symfony\Component\Ldap\Tests\Adapter;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\PhpUnit\ExpectUserDeprecationMessageTrait;
 use Symfony\Component\Ldap\Adapter\AbstractQuery;
 use Symfony\Component\Ldap\Adapter\CollectionInterface;
 use Symfony\Component\Ldap\Adapter\ConnectionInterface;
 
 class AbstractQueryTest extends TestCase
 {
-    use ExpectUserDeprecationMessageTrait;
-
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSizeLimitIsDeprecated()
     {
         $this->expectUserDeprecationMessage('Since symfony/ldap 7.2: The "sizeLimit" option is deprecated and will be removed in Symfony 8.0.');
