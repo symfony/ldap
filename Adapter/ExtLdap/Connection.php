@@ -71,7 +71,7 @@ class Connection extends AbstractConnection
 
         if (false === @ldap_bind($this->connection, $dn, $password)) {
             $error = ldap_error($this->connection);
-            ldap_get_option($this->connection, LDAP_OPT_DIAGNOSTIC_MESSAGE, $diagnostic);
+            ldap_get_option($this->connection, \LDAP_OPT_DIAGNOSTIC_MESSAGE, $diagnostic);
 
             throw match (ldap_errno($this->connection)) {
                 self::LDAP_INVALID_CREDENTIALS => new InvalidCredentialsException($error),
@@ -99,7 +99,7 @@ class Connection extends AbstractConnection
 
         if (false === @ldap_sasl_bind($this->connection, $dn, $password, $mech, $realm, $authcId, $authzId, $props)) {
             $error = ldap_error($this->connection);
-            ldap_get_option($this->connection, LDAP_OPT_DIAGNOSTIC_MESSAGE, $diagnostic);
+            ldap_get_option($this->connection, \LDAP_OPT_DIAGNOSTIC_MESSAGE, $diagnostic);
 
             throw match (ldap_errno($this->connection)) {
                 self::LDAP_INVALID_CREDENTIALS => new InvalidCredentialsException($error),
