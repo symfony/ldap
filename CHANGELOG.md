@@ -4,8 +4,7 @@ CHANGELOG
 7.3
 ---
 
- * Deprecate `LdapUser::eraseCredentials()`, use `LdapUser::setPassword(null)` instead
- * Add `EraseLdapUserCredentialsListener`
+ * Deprecate `LdapUser::eraseCredentials()` in favor of `__serialize()`
 
 7.2
 ---
