@@ -47,7 +47,7 @@ class LdapUser implements UserInterface, PasswordAuthenticatedUserInterface, Equ
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this->password ?? null;
     }
 
     public function getSalt(): ?string
@@ -89,7 +89,7 @@ class LdapUser implements UserInterface, PasswordAuthenticatedUserInterface, Equ
             return false;
         }
 
-        if ($this->getPassword() !== $user->getPassword()) {
+        if (($this->getPassword() ?? $user->getPassword()) !== $user->getPassword()) {
             return false;
         }
 
