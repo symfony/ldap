@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+8.0
+---
+
+ * Remove `LdapUser::eraseCredentials()` in favor of `__serialize()`
+
 7.3
 ---
 

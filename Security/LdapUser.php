@@ -60,15 +60,6 @@ class LdapUser implements UserInterface, PasswordAuthenticatedUserInterface, Equ
         return $this->identifier;
     }
 
-    /**
-     * @deprecated since Symfony 7.3
-     */
-    #[\Deprecated(since: 'symfony/ldap 7.3')]
-    public function eraseCredentials(): void
-    {
-        $this->password = null;
-    }
-
     public function getExtraFields(): array
     {
         return $this->extraFields;
