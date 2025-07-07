@@ -4,6 +4,7 @@ CHANGELOG
 8.0
 ---
 
+ * Remove the `sizeLimit` option of `AbstractQuery`
  * Remove `LdapUser::eraseCredentials()` in favor of `__serialize()`
 
 7.3
