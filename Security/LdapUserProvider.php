@@ -89,7 +89,7 @@ class LdapUserProvider implements UserProviderInterface, PasswordUpgraderInterfa
         $count = \count($entries);
 
         if (!$count) {
-            $e = new UserNotFoundException(sprintf('User "%s" not found.', $identifier));
+            $e = new UserNotFoundException(\sprintf('User "%s" not found.', $identifier));
             $e->setUserIdentifier($identifier);
 
             throw $e;
@@ -117,7 +117,7 @@ class LdapUserProvider implements UserProviderInterface, PasswordUpgraderInterfa
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof LdapUser) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
+            throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
         }
 
         return new LdapUser($user->getEntry(), $user->getUserIdentifier(), $user->getPassword(), $user->getRoles(), $user->getExtraFields());
@@ -129,7 +129,7 @@ class LdapUserProvider implements UserProviderInterface, PasswordUpgraderInterfa
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof LdapUser) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
+            throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
         }
 
         if (null === $this->passwordAttribute) {
@@ -172,7 +172,7 @@ class LdapUserProvider implements UserProviderInterface, PasswordUpgraderInterfa
     private function getAttributeValue(Entry $entry, string $attribute): mixed
     {
         if (!$entry->hasAttribute($attribute)) {
-            throw new InvalidArgumentException(sprintf('Missing attribute "%s" for user "%s".', $attribute, $entry->getDn()));
+            throw new InvalidArgumentException(\sprintf('Missing attribute "%s" for user "%s".', $attribute, $entry->getDn()));
         }
 
         $values = $entry->getAttribute($attribute);
@@ -181,7 +181,7 @@ class LdapUserProvider implements UserProviderInterface, PasswordUpgraderInterfa
         }
 
         if (1 !== \count($values)) {
-            throw new InvalidArgumentException(sprintf('Attribute "%s" has multiple values.', $attribute));
+            throw new InvalidArgumentException(\sprintf('Attribute "%s" has multiple values.', $attribute));
         }
 
         return $values[0];

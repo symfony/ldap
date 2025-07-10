@@ -70,7 +70,7 @@ class LdapAuthenticator implements AuthenticationEntryPointInterface, Interactiv
      */
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface
     {
-        throw new \BadMethodCallException(sprintf('The "%s()" method cannot be called.', __METHOD__));
+        throw new \BadMethodCallException(\sprintf('The "%s()" method cannot be called.', __METHOD__));
     }
 
     public function createToken(Passport $passport, string $firewallName): TokenInterface
@@ -91,7 +91,7 @@ class LdapAuthenticator implements AuthenticationEntryPointInterface, Interactiv
     public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         if (!$this->authenticator instanceof AuthenticationEntryPointInterface) {
-            throw new NotAnEntryPointException(sprintf('Decorated authenticator "%s" does not implement interface "%s".', get_debug_type($this->authenticator), AuthenticationEntryPointInterface::class));
+            throw new NotAnEntryPointException(\sprintf('Decorated authenticator "%s" does not implement interface "%s".', get_debug_type($this->authenticator), AuthenticationEntryPointInterface::class));
         }
 
         return $this->authenticator->start($request, $authException);
