@@ -6,6 +6,7 @@ CHANGELOG
 
  * Remove the `sizeLimit` option of `AbstractQuery`
  * Remove `LdapUser::eraseCredentials()` in favor of `__serialize()`
+ * Add methods for `saslBind()` and `whoami()` to `ConnectionInterface` and `LdapInterface`
 
 7.3
 ---
