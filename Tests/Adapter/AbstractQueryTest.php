@@ -28,7 +28,7 @@ class AbstractQueryTest extends TestCase
     {
         $this->expectUserDeprecationMessage('Since symfony/ldap 7.2: The "sizeLimit" option is deprecated and will be removed in Symfony 8.0.');
 
-        new class($this->createMock(ConnectionInterface::class), '', '', ['filter' => '*', 'sizeLimit' => 1]) extends AbstractQuery {
+        new class($this->createStub(ConnectionInterface::class), '', '', ['filter' => '*', 'sizeLimit' => 1]) extends AbstractQuery {
             public function execute(): CollectionInterface
             {
             }
