@@ -393,13 +393,13 @@ class LdapUserProviderTest extends TestCase
     public function testLoadUserWithCorrectRoles()
     {
         // Given
-        $result = $this->createMock(CollectionInterface::class);
-        $query = $this->createMock(QueryInterface::class);
+        $result = $this->createStub(CollectionInterface::class);
+        $query = $this->createStub(QueryInterface::class);
         $query
             ->method('execute')
             ->willReturn($result)
         ;
-        $ldap = $this->createMock(LdapInterface::class);
+        $ldap = $this->createStub(LdapInterface::class);
         $result
             ->method('offsetGet')
             ->with(0)
@@ -417,7 +417,7 @@ class LdapUserProviderTest extends TestCase
             ->method('query')
             ->willReturn($query)
         ;
-        $roleFetcher = $this->createMock(RoleFetcherInterface::class);
+        $roleFetcher = $this->createStub(RoleFetcherInterface::class);
         $roleFetcher
             ->method('fetchRoles')
             ->willReturn(['ROLE_FOO', 'ROLE_BAR'])
