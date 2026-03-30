@@ -67,4 +67,9 @@ class Adapter implements AdapterInterface
 
         return $value;
     }
+
+    public function reset(): void
+    {
+        unset($this->entryManager, $this->connection);
+    }
 }

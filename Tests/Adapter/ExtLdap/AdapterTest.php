@@ -34,6 +34,22 @@ class AdapterTest extends LdapTestCase
         $this->assertEquals('\20foo\3dbar\0d(baz)*\20', $ldap->escape(" foo=bar\r(baz)* ", '', LdapInterface::ESCAPE_DN));
     }
 
+    public function testResetClearsConnectionAndEntryManager()
+    {
+        $adapter = new Adapter();
+
+        $connection1 = $adapter->getConnection();
+        $entryManager1 = $adapter->getEntryManager();
+
+        $adapter->reset();
+
+        $connection2 = $adapter->getConnection();
+        $entryManager2 = $adapter->getEntryManager();
+
+        $this->assertNotSame($connection1, $connection2);
+        $this->assertNotSame($entryManager1, $entryManager2);
+    }
+
     /**
      * @group functional
      */
