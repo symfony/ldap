@@ -118,7 +118,7 @@ class LdapTest extends TestCase
 
     public function testResetWithAdapterWithoutResetMethod()
     {
-        $adapter = $this->createMock(AdapterInterface::class);
+        $adapter = $this->createStub(AdapterInterface::class);
 
         $ldap = new Ldap($adapter);
         $ldap->reset();
