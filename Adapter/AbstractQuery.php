@@ -41,7 +41,7 @@ abstract class AbstractQuery implements QueryInterface
         $resolver->setAllowedValues('deref', [static::DEREF_ALWAYS, static::DEREF_NEVER, static::DEREF_FINDING, static::DEREF_SEARCHING]);
         $resolver->setAllowedValues('scope', [static::SCOPE_BASE, static::SCOPE_ONE, static::SCOPE_SUB]);
 
-        $resolver->setNormalizer('filter', fn (Options $options, $value) => \is_array($value) ? $value : [$value]);
+        $resolver->setNormalizer('filter', static fn (Options $options, $value) => \is_array($value) ? $value : [$value]);
 
         $resolver->setDeprecated('sizeLimit', 'symfony/ldap', '7.2', 'The "%name%" option is deprecated and will be removed in Symfony 8.0.');
 
