@@ -178,7 +178,7 @@ class Connection extends AbstractConnection
             }
 
             if (!isset($parent['network_timeout'])) {
-                $options->setDefault('network_timeout', \ini_get('default_socket_timeout'));
+                $options->setDefault('network_timeout', (int) \ini_get('default_socket_timeout'));
             }
 
             $options->setDefaults([
